@@ -6,6 +6,7 @@ def column_mapping(survey_data) -> list:
     Returns:
         A list of data columns. They are grouped in the sub-lists for single questions.
     '''
+    
     columns = list(survey_data.columns[1:])
     q_numbers = [col.split('_')[0] for col in survey_data.columns[1:]]
     q_index = [columns.index(col) for col in columns]
@@ -17,6 +18,8 @@ def column_mapping(survey_data) -> list:
         try:   
             if idx == 0 and number != q_numbers[idx+1]:
                 mapped_columns.append(col)
+            elif idx == 0 and number == q_numbers[idx+1]:
+                temp_list = [col]
             elif idx != 0 and number != q_numbers[idx-1] and number != q_numbers[idx+1]:
                 mapped_columns.append(col)
             elif idx != 0 and number != q_numbers[idx-1] and number == q_numbers[idx+1]:
